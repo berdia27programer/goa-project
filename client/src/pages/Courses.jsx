@@ -2,9 +2,13 @@ import { useContext, useState } from "react"
 import { courseContext } from "../context/Courses.context"
 
 import programming from "../assets/imgs/download (1).jpeg"
+import gamedev from "../assets/imgs/download (2).jpeg"
+import mma from "../assets/imgs/download.jpeg"
+import robotics from "../assets/imgs/download (3).jpeg"
+import math from "../assets/imgs/download (4).jpeg"
 
 export default function Courses() {
-    const { courses: apiCourses = [], addcourse, error: contextError } = useContext(courseContext);
+    const { courses: apiCourses = [], addcourse, deletecourse, error: contextError } = useContext(courseContext);
     
     const [title, setTitle] = useState("");
     const [image, setImage] = useState(null);
@@ -12,6 +16,10 @@ export default function Courses() {
 
     const staticCourses = [
         { title: "Programming", img: programming },
+        { title: "Game development", img: gamedev },
+        { title: "MMA (Martial arts)", img: mma },
+        { title: "Robotics", img: robotics },
+        { title: "Math", img: math }
     ];
 
     const handleSubmit = async (e) => {
@@ -48,6 +56,7 @@ export default function Courses() {
                             onError={(e) => { e.target.src = "https://via.placeholder.com/300" }}
                         />
                         <h2 className="text-xl font-bold mt-4 text-green-800">{course.title}</h2>
+                        <button onClick={() => deletecourse(course.id)} className=" bg-red-700 text-white p-3 rounded-full font-bold cursor-pointer">Delete course</button>
                     </div>
                 ))}
             </div>
@@ -67,7 +76,7 @@ export default function Courses() {
                         className="p-2"
                         onChange={e => setImage(e.target.files[0])}
                     />
-                    <button className="bg-green-600 text-white p-3 rounded-full font-bold">
+                    <button className="bg-green-600 text-white p-3 rounded-full cursor-pointer font-bold">
                         Add Course
                     </button>
                 </form>

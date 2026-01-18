@@ -38,8 +38,19 @@ export function CourseProvider({ children }) {
         }
     };
 
+    const deletecourse = async (courseId) => {
+        setLoading(true);
+        try {
+            setCourses(prev => prev.filter(course => course.id !== courseId));
+        } catch (err) {
+            setError("Failed to delete course");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <courseContext.Provider value={{ courses, loading, error, addcourse }}>
+        <courseContext.Provider value={{ courses, loading, error, addcourse, deletecourse }}>
             {children}
         </courseContext.Provider>
     );

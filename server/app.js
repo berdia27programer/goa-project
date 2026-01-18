@@ -6,9 +6,7 @@ const { default: mongoose } = require("mongoose")
 const cors = require("cors")
 const authRouter = require("./routes/auth.router.js")
 const commentsRouter = require("./routes/comments.router.js")
-// const coursesRouter = require("./routes/courses.router.js")
-
-const courseRouter = require(path.join(__dirname, 'routes', 'course.router.js'));
+const coursesRouter = require(path.join(__dirname, 'routes', 'course.router.js'))
 
 dotenv.config()
 
