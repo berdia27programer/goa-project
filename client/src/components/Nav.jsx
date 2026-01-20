@@ -19,7 +19,7 @@ export default function Nav() {
         <nav className="bg-green-900 text-white sticky top-0 z-50 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
-                    <div className="flex-shrink-0 flex items-center">
+                    <div className="shrink-0 flex items-center">
                         <Link to="/" className="text-2xl font-black tracking-tighter text-green-400 hover:text-white transition-colors">
                             GOA<span className="text-white">.</span>
                         </Link>

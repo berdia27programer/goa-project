@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth.context";
 import img from "../assets/imgs/IMG_0718.PNG"
+import { Link } from "react-router"
 
 export default function Signup() {
     const { signup } = useContext(AuthContext);
@@ -12,7 +13,7 @@ export default function Signup() {
 
     return (
         <div className="min-h-screen bg-green-50 flex items-center justify-center p-4">
-            <div className="max-w-5xl w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row-reverse border border-green-100">
+            <div className="max-w-5xl w-full bg-white rounded-4xl shadow-2xl overflow-hidden flex flex-col lg:flex-row-reverse border border-green-100">
                 
                 <div className="hidden lg:block lg:w-1/2 bg-green-100">
                     <img 
@@ -82,7 +83,7 @@ export default function Signup() {
                     </form>
 
                     <p className="mt-8 text-center text-sm text-green-700">
-                        Already have an account? <span className="font-bold cursor-pointer hover:underline text-green-900">Log in</span>
+                        Already have an account? <span className="font-bold cursor-pointer hover:underline text-green-900"><Link to="/logIn">Log in</Link></span>
                     </p>
                 </div>
             </div>

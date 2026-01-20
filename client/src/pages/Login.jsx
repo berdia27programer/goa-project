@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth.context";
 import img from "../assets/imgs/IMG_0717.PNG"
+import { Link } from "react-router"
 
 export default function Login() {
     const { login } = useContext(AuthContext)
@@ -12,7 +13,7 @@ export default function Login() {
 
     return (
         <div className="min-h-screen bg-green-50 flex items-center justify-center p-4">
-            <div className="max-w-4xl w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-green-100">
+            <div className="max-w-4xl w-full bg-white rounded-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-green-100">
                 
                 <div className="hidden md:block md:w-1/2 bg-green-100">
                     <img 
@@ -61,7 +62,7 @@ export default function Login() {
 
                     <div className="mt-8 text-center">
                         <p className="text-sm text-green-700">
-                            Don't have an account? <span className="font-bold cursor-pointer hover:underline">Join GOA</span>
+                            Don't have an account? <span className="font-bold cursor-pointer hover:underline"><Link to="/signUp">Join GOA</Link></span>
                         </p>
                     </div>
                 </div>
