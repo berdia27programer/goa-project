@@ -8,7 +8,10 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        
+        login(data);
     };
 
     return (

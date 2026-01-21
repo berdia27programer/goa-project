@@ -1,68 +1,53 @@
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
-const API_URL = "https://localhost:3000";
-
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState([]);
+    // Check if a user is already logged in from a previous session
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem("goa_user");
+        return savedUser ? JSON.parse(savedUser) : null;
+    });
 
     const signup = async (formObj) => {
         try {
-            const res = await fetch(`${API_URL}/auth/signUp`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formObj)
-            });
+            await new Promise(resolve => setTimeout(resolve, 800));
 
-            const data = await res.json();
+            const newUser = { 
+                id: Date.now(), 
+                name: formObj.name, 
+                email: formObj.email 
+            };
 
-            if (!res.ok) {
-                throw new Error(data.message);
-            }
-
-            setUser(data.data?.user || data.user || data);
-
-            alert("You have succesfully signed up!");
+            setUser(newUser);
+            localStorage.setItem("goa_user", JSON.stringify(newUser));
+            alert("You have successfully signed up!");
         } catch (err) {
-            console.error(err);
-            alert(err.message || "Signup failed");
+            alert("Signup failed");
         }
     };
 
     const login = async (formObj) => {
         try {
-            const res = await fetch(`${API_URL}/auth/logIn`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formObj),
-                credentials: "include"
-            });
+            await new Promise(resolve => setTimeout(resolve, 800));
 
-            const result = await res.json();
-
-            if (!res.ok) {
-                throw new Error(result.message);
-            }
-
-            const loggedInUser = result?.data?.user || result?.user || result;
+            const loggedInUser = { 
+                id: 1, 
+                name: "Demo User", 
+                email: formObj.email 
+            };
 
             setUser(loggedInUser);
-
-            alert("You have succesfully logged in!")
+            localStorage.setItem("goa_user", JSON.stringify(loggedInUser));
+            alert("Welcome back! You have successfully logged in!");
         } catch (err) {
-            alert(err.message || "Login failed");
+            alert("Login failed");
         }
     };
 
-
-    const logout = async () => {
+    const logout = () => {
         setUser(null);
+        localStorage.removeItem("goa_user");
         alert("You have successfully logged out");
     };
 

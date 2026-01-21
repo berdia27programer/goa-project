@@ -8,7 +8,15 @@ export default function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        signup();
+        
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+
+        if (data.password !== data.comfPass) {
+            return alert("Passwords do not match!");
+        }
+
+        signup(data);
     };
 
     return (
