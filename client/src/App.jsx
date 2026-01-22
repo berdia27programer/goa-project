@@ -10,13 +10,11 @@ import { useEffect } from "react"
 
 export default function App() {
   useEffect(() => {
-    // This is the standard Tawk.to snippet
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     (function() {
       var s1 = document.createElement("script"),
           s0 = document.getElementsByTagName("script")[0];
       s1.async = true;
-      // REPLACE THE URL BELOW WITH THE ONE FROM YOUR "WIDGET CODE" BOX
       s1.src = 'https://embed.tawk.to/6951492704efae197bede483/default'; 
       s1.charset = 'UTF-8';
       s1.setAttribute('crossorigin', '*');
