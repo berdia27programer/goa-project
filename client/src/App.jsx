@@ -6,8 +6,24 @@ import Contact from "./pages/Contact"
 import Signup from "./pages/Signup"
 import Nav from "./components/Nav"
 import Login from "./pages/Login"
+import { useEffect } from "react"
 
 export default function App() {
+  useEffect(() => {
+    // This is the standard Tawk.to snippet
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function() {
+      var s1 = document.createElement("script"),
+          s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      // REPLACE THE URL BELOW WITH THE ONE FROM YOUR "WIDGET CODE" BOX
+      s1.src = 'https://embed.tawk.to/6951492704efae197bede483/default'; 
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-green-50 selection:bg-green-200 selection:text-green-900">
       <header className="fixed top-0 w-full z-50">
