@@ -1,8 +1,11 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { AuthContext } from "./Auth.context";
 
 export const courseContext = createContext();
 
 export function CourseProvider({ children }) {
+    const { user } = useContext(AuthContext)
+
     const [courses, setCourses] = useState(() => {
         const saved = localStorage.getItem("mock_courses");
         return saved ? JSON.parse(saved) : [];
@@ -27,7 +30,8 @@ export function CourseProvider({ children }) {
             const newCourse = {
                 id: Date.now(),
                 title: title,
-                imagePath: imageUrl
+                imagePath: imageUrl,
+                email: user?.email
             };
 
             setCourses(prev => [...prev, newCourse]);
@@ -38,10 +42,14 @@ export function CourseProvider({ children }) {
         }
     };
 
-    const deletecourse = async (courseId) => {
+    const deletecourse = async (courseId, courseEmail) => {
         setLoading(true);
         try {
-            setCourses(prev => prev.filter(course => course.id !== courseId));
+            if (user?.email === courseEmail) {
+                setCourses(prev => prev.filter(course => course.id !== courseId));
+            } else {
+                setError("You can only delete your own courses");
+            }
         } catch (err) {
             setError("Failed to delete course");
         } finally {

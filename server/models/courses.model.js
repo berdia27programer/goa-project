@@ -4,6 +4,10 @@ const courseSchema = new mongoose.Schema({
     title: {
         type: String,
         require: true
+    },
+    email: {
+        type: String,
+        require: true
     }
 
 }, { timestamps: true });

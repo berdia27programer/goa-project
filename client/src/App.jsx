@@ -27,7 +27,7 @@ export default function App() {
       <header className="fixed top-0 w-full z-50">
         <Nav />
       </header>
-      <main className="flex-grow pt-20"> 
+      <main className="grow pt-20"> 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

@@ -3,7 +3,6 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    // Check if a user is already logged in from a previous session
     const [user, setUser] = useState(() => {
         const savedUser = localStorage.getItem("goa_user");
         return savedUser ? JSON.parse(savedUser) : null;

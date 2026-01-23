@@ -6,10 +6,12 @@ import gamedev from "../assets/imgs/download (2).jpeg"
 import mma from "../assets/imgs/download.jpeg"
 import robotics from "../assets/imgs/download (3).jpeg"
 import math from "../assets/imgs/download (4).jpeg"
+import { AuthContext } from "../context/Auth.context"
 
 export default function Courses() {
     const { courses: apiCourses = [], addcourse, deletecourse, error: contextError } = useContext(courseContext);
-    
+    const { user } = useContext(AuthContext)
+
     const [title, setTitle] = useState("");
     const [image, setImage] = useState(null);
     const [error, setError] = useState("");
@@ -56,31 +58,33 @@ export default function Courses() {
                             onError={(e) => { e.target.src = "https://via.placeholder.com/300" }}
                         />
                         <h2 className="text-xl font-bold mt-4 text-green-800">{course.title}</h2>
-                        <button onClick={() => deletecourse(course.id)} className=" bg-red-700 text-white p-3 rounded-full font-bold cursor-pointer">Delete course</button>
+                        {user && (user.email === course.email || user.email === "berdiabekauri5@gmail.com") && <button onClick={() => deletecourse(course.id, course.email)} className=" bg-red-700 text-white p-3 rounded-full font-bold cursor-pointer">Delete course</button>}
                     </div>
                 ))}
             </div>
 
-            <div className="mt-20 max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl border border-green-200">
-                <h2 className="text-2xl font-bold text-center mb-6">Create New Course</h2>
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                    <input 
-                        type="text" 
-                        placeholder="Course Title"
-                        className="border p-3 rounded-full"
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                    />
-                    <input 
-                        type="file" 
-                        className="p-2"
-                        onChange={e => setImage(e.target.files[0])}
-                    />
-                    <button className="bg-green-600 text-white p-3 rounded-full cursor-pointer font-bold">
-                        Add Course
-                    </button>
-                </form>
-            </div>
+            {user?.email === "berdiabekauri5@gmail.com" && (
+                <div className="mt-20 max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl border border-green-200">
+                    <h2 className="text-2xl font-bold text-center mb-6">Create New Course</h2>
+                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                        <input 
+                            type="text" 
+                            placeholder="Course Title"
+                            className="border p-3 rounded-full"
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                        />
+                        <input 
+                            type="file" 
+                            className="p-2"
+                            onChange={e => setImage(e.target.files[0])}
+                        />
+                        <button className="bg-green-600 text-white p-3 rounded-full cursor-pointer font-bold">
+                            Add Course
+                        </button>
+                    </form>
+                </div>
+            )}
         </div>
     );
 }

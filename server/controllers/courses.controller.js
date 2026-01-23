@@ -21,14 +21,19 @@ const getcourse = catchAsync(async (req, res, next) => {
 });
 
 const createcourse = catchAsync(async (req, res, next) => {
-    const { content } = req.body;
+    const { title, email } = req.body;
 
-    if (!content || content.trim() === "") {
-        return next(new AppError("Content required!", 403))
+    if (!title || title.trim() === "") {
+        return next(new AppError("Title required!", 403))
+    }
+
+    if (!email || email.trim() === "") {
+        return next(new AppError("Email required!", 403))
     }
 
     const newcourse = await Course.create({
-        content
+        title,
+        email
     });
 
     res.status(201).json(newcourse)
@@ -36,11 +41,16 @@ const createcourse = catchAsync(async (req, res, next) => {
 
 const deletecourse = catchAsync(async (req, res, next) => {
     const { id } = req.params;
+    const { email } = req.body;
 
     const course = await Course.findById(id)
 
     if (!course) {
         return next(new AppError("course not found", 404))
+    }
+
+    if (course.email !== email) {
+        return next(new AppError("You are not authorized to delete this course", 403))
     }
     
     await Course.findByIdAndDelete(id);
